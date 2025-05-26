@@ -45,6 +45,36 @@
             transition: transform 0.1s ease;
         }
 
+        /* Gradient Ring Around Cursor */
+        .cursor::before {
+            content: '';
+            position: absolute;
+            width: 30px; /* Larger ring size */
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc);
+            opacity: 0.6;
+            transform: translate(-50%, -50%);
+            z-index: -1; /* Behind the cursor dot */
+            box-shadow: 0 0 15px rgba(255, 0, 204, 0.3), 0 0 30px rgba(51, 51, 255, 0.3);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+        }
+
         /* Particle Styles */
         .cursor-trail {
             position: fixed;
@@ -162,7 +192,7 @@
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            position: relative; /* Added to position scroll indicator within section */
+            position: relative;
         }
 
         .card {
@@ -178,7 +208,7 @@
         .scroll-indicator {
             animation: bounce 2s infinite;
             position: absolute;
-            bottom: 2rem; /* Adjusted to position at bottom of section */
+            bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -200,6 +230,11 @@
         @media (max-width: 640px) {
             .card {
                 padding: 1.5rem;
+            }
+
+            .cursor::before {
+                width: 24px; /* Smaller ring for mobile */
+                height: 24px;
             }
         }
     </style>
@@ -613,7 +648,7 @@
             const size = Math.random() * 10 + 5;
             
             if (isStarShape) {
-                const בכוכב = document.createElement('div');
+                const star = document.createElement('div');
                 star.className = 'cursor-star';
                 particle.appendChild(star);
             }
